@@ -1,10 +1,10 @@
 HEY THIS IS A TEST!!!!hlkh
 HEY its Noble!!!
-<<<<<<< HEAD
+ljhgljhg
+Cool I see it!
+
 Cool I see it!
 
 HEY ITS GAIUS
-=======
-ljhgljhg
-Cool I see it!
->>>>>>> 488b053b4303f3f742dbbb3f59e5c09bc6c35069
+
+Hay it's shashi
