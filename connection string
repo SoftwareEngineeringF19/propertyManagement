@@ -1,0 +1,24 @@
+***************************************************************************************************************************************************************************
+*NOTE!!!
+TO USE THE CONNECTION STRING IF YOU HAVE BEEN GIVEN ACCESS TO DB LOGIN IN THROUGH ATLAS FIRST THEN GO TO NETWORK ACCESS AND FIND YOUR USERNAME THEN REPLACE THAT WHERE IT SHOULD BE PUT AND PASSWORD IS PASSWORD123
+
+***************************************************************************************************************************************************************************
+connection string ONLY for NodeJs
+*
+mongodb+srv://<username>:<password>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority
+*
+*
+***************************************************************************************************************************************************************************
+*
+* Full Driver Connection String:
+*
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://<username>:<password>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+*
+***************************************************************************************************************************************************************************
