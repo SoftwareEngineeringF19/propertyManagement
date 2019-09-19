@@ -63,8 +63,8 @@ class WikiDepressionPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
         ('/', MainHandler),
-        ('/Depression', Depressionpage),
-        ('/Depressionwiki', WikiDepressionPage)
+        ('/TenantPortal', TenantPortal),
+        ('/LandLordPortal', LandLordPortal)
 
 
 ], debug=True)
