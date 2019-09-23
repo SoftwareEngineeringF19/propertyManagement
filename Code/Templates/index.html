@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.4.0/stitch.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,6 +10,17 @@
 </head>
 
 <body>
+  <script>
+  const client = stitch.Stitch.initializeDefaultAppClient('propertymanagment-tonay');
+
+  const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('Property_Management');
+
+  client.auth.loginWithCredential(new stitch.AnonymousCredential()).then(user =>
+    {
+      
+    });
+    </script>
+
     <form action="{{ url_for('showLandlordProfile')}}" method="POST">
         <span>Landlords:</span>
         <select name="landlord-select" onchange="this.form.submit()">
