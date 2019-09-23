@@ -8,5 +8,7 @@ handlers:
   script: main.app
 
 libraries:
-- name: jinja2
+- name: Flask
+  version: latest
+- name: MongoClient
   version: latest
