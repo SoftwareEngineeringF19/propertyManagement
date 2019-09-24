@@ -1,11 +1,11 @@
 #app.yaml
-runtime: python27
+runtime: python37
 api_version: 1
 threadsafe: true
 
 handlers:
 - url: /.*
-  script: main.app
+  script: myHandler.app
 
 libraries:
 - name: Flask
