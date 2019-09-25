@@ -1,33 +1,35 @@
 import database as db
 from flask import Flask, render_template, request, redirect, url_for
+from flask_pymongo import PyMongo
 app = Flask(__name__)
-app.config['MONGO_URL'] = 'mongodb+srv://<gaius>:<password123>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority'
-mongo =PyMongo(app)
+app.config['MONGO_URI'] = 'mongodb+srv://<gaius>:<password123>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority'
+mongo = PyMongo(app)
+
+client = pymongo.MongoClient("mongodb+srv://<gaius>:<password123>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority")
+db = client.test
+
+@app.route('/')
+def index():
+    landlords = db.getAllLandlords()
+    tenants = db.getAllTenants()
+    data = {
+        "landlords" : landlords,
+        "tenants" : tenants
+    }
+    return render_template('index.html', data=data)
+
+@app.route("/tenant/" , methods=['GET', 'POST'])
+def showTenantProfile():
+    selectedTenantUsername = request.form.get('tenant-select')
+    tenant = db.getTenant(selectedTenantUsername)
+    return render_template('tenant.html', tenant = tenant)
 
 
-
- @app.route('/')
- def index():
-     landlords = db.getAllLandlords()
-     tenants = db.getAllTenants()
-     data = {
-         "landlords" : landlords,
-         "tenants" : tenants
-     }
-     return render_template('index.html', data=data)
-
- @app.route("/tenant/" , methods=['GET', 'POST'])
- def showTenantProfile():
-     selectedTenantUsername = request.form.get('tenant-select')
-     tenant = db.getTenant(selectedTenantUsername)
-     return render_template('tenant.html', tenant = tenant)
-
-
- @app.route("/landlord/" , methods=['GET', 'POST'])
- def showLandlordProfile():
-     selectedLandLordUsername = request.form.get('landlord-select')
-     landLord = db.getLandLord(selectedLandLordUsername)
-     return render_template('landLord.html', landLord = landLord)
+@app.route("/landlord/" , methods=['GET', 'POST'])
+def showLandlordProfile():
+    selectedLandLordUsername = request.form.get('landlord-select')
+    landLord = db.getLandLord(selectedLandLordUsername)
+    return render_template('landLord.html', landLord = landLord)
 
 
 # from flask import Flask, redirect, url_for, session, request
