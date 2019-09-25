@@ -1,4 +1,4 @@
-from pymongo import MongoClient 
+from PyMongo import MongoClient 
 
 connectionUrl = "mongodb+srv://Dom:password1234@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 
