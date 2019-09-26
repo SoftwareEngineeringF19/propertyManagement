@@ -1,13 +1,7 @@
 import database as db
 from flask import Flask, render_template, request, redirect, url_for 
-from flask_pymongo import PyMongo
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb+srv://<gaius>:<password123>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority'
-mongo = PyMongo(app)
-
-client = PyMongo.MongoClient("mongodb+srv://<gaius>:<password123>@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority")
-db = client.test
 
 @app.route('/')
 def index():

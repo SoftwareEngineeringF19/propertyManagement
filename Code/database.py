@@ -1,8 +1,9 @@
-from PyMongo import MongoClient 
+# from PyMongo import MongoClient 
+import pymongo
 
 connectionUrl = "mongodb+srv://Dom:password1234@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 
-client = MongoClient(connectionUrl)
+client = pymongo.MongoClient(connectionUrl)
 
 db = client.get_database("Property_Management")
 
