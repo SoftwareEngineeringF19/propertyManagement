@@ -1,0 +1,14 @@
+#app.yaml
+runtime: python37
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: myHandler.app
+
+libraries:
+- name: Flask
+  version: latest
+- name: MongoClient
+  version: latest
