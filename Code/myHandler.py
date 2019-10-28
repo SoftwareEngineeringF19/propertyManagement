@@ -1,7 +1,11 @@
-import database as db
-from flask import Flask, render_template, request, redirect, url_for 
+import database as db, config
+from flask import Flask, render_template, request, redirect, url_for, session 
+from fileHandler import FileHandler
 
 app = Flask(__name__)
+app.secret_key = config.secretKey
+
+fileHandler = FileHandler()
 
 @app.route('/login')
 def login():
@@ -20,6 +24,7 @@ def index():
 @app.route("/tenant/" , methods=['GET', 'POST'])
 def showTenantProfile():
     selectedTenantUsername = request.form.get('tenant-select')
+    session['activeUser'] = selectedTenantUsername 
     tenant = db.getTenant(selectedTenantUsername)
     return render_template('tenant.html', tenant = tenant)
 
