@@ -32,6 +32,7 @@ def showTenantProfile():
 @app.route("/landlord/" , methods=['GET', 'POST'])
 def showLandlordProfile():
     selectedLandLordUsername = request.form.get('landlord-select')
+    session['activeUser'] = selectedLandLordUsername
     landLord = db.getLandLord(selectedLandLordUsername)
     return render_template('landLord.html', landLord = landLord)
 

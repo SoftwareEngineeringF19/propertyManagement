@@ -1,11 +1,13 @@
-# from PyMongo import MongoClient 
-import pymongo
+import pymongo, config
+from fileHandler import FileHandler
+
 
 connectionUrl = "mongodb+srv://Dom:password1234@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 client = pymongo.MongoClient(connectionUrl)
 
 db = client.get_database("Property_Management")
+fileHandler = FileHandler()
 
 def getAllTenants():
     tenantCollection = db['Tenant']
@@ -17,10 +19,17 @@ def getAllLandlords():
 
 def getTenant(tenantUsername):
     tenantCollection = db['Tenant']
-    return tenantCollection.find_one({'Username': tenantUsername})
+    tenant = tenantCollection.find_one({'Username': tenantUsername})
+    profileImage = fileHandler.getImagePathOrDefault(config.avatarsFolder, tenantUsername)
+    tenant['profileImage'] = profileImage
+    return tenant
 
 def getLandLord(landLordUsername):
     landLordCollection = db['LandLord']
-    return landLordCollection.find_one({'Username': landLordUsername})
+    landLord = landLordCollection.find_one({'Username': landLordUsername})
+    profileImage = fileHandler.getImagePathOrDefault(config.avatarsFolder, landLordUsername)
+    landLord['profileImage'] = profileImage
+    return landLord
 
 
+getTenant("shane")
