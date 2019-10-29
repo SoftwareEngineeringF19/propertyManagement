@@ -35,6 +35,8 @@ def showTenantProfile():
 def workOrderSubmission():
     if request.method == 'GET':
         return render_template('tenantWorkSubmission.html')
+    else:
+        return index()
     
 
 
