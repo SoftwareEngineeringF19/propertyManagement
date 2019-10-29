@@ -1,7 +1,8 @@
 import os
+from werkzeug.datastructures import FileStorage
 
 class FileHandler:
-    def saveImage(self, folder, file) -> None:
+    def saveImage(self, folder: str, file: FileStorage) -> None:
         file.save(os.path.join(folder, file.filename))
 
     # returns the image path based off the folder and filename. If the requested image does

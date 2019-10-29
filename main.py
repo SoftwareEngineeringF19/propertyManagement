@@ -1,6 +1,7 @@
-import database as db, config
 from flask import Flask, render_template, request, redirect, url_for, session 
-from helpers.fileHandler import FileHandler
+from . import database as db, config
+from . helpers.fileHandler import FileHandler
+
 
 app = Flask(__name__)
 app.secret_key = config.secretKey
@@ -29,6 +30,13 @@ def showTenantProfile():
     session[activeUserKey] = selectedTenantUsername 
     tenant = db.getTenant(selectedTenantUsername)
     return render_template('tenant.html', tenant = tenant)
+
+@app.route("/tenant/WorkSubmission/" , methods=['GET', 'POST'])
+def workOrderSubmission():
+    if request.method == 'GET':
+        return render_template('tenantWorkSubmission.html')
+    
+
 
 @app.route("/landlord/" , methods=['GET', 'POST'])
 def showLandLordProfile():

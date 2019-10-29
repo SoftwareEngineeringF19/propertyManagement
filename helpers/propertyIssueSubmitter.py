@@ -8,14 +8,8 @@ from fileHandler import FileHandler
 class PropertyIssueSubmitter:
     def handlePropertySubmission(self, propertyIssue: PropertyIssue):
         fileHandler = FileHandler()
-        imageFolderPath = f"{config.propertyIssuesImageFolder}/propertyIssues/{propertyIssue.propertyId}/"
+        imageFolderPath = f"{config.propertyIssuesImageFolder}/{propertyIssue.propertyId}/"
         os.makedirs(imageFolderPath)
         fileHandler.saveImage(propertyIssue.imageName, imageFolderPath)
         # db.addPropertyIssue(propertyIssue)
         print(imageFolderPath)
-
-# p = PropertyIssue("123", "hi", 1, "hihi.png", "dom")
-
-# pr = PropertyIssueSubmitter()
-
-# pr.handlePropertySubmission(p)

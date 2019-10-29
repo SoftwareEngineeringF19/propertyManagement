@@ -1,4 +1,5 @@
-import pymongo, config
+import pymongo
+from . import config
 
 connectionUrl = "mongodb+srv://Dom:password1234@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 
