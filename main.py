@@ -1,6 +1,6 @@
 import database as db, config
 from flask import Flask, render_template, request, redirect, url_for, session 
-from fileHandler import FileHandler
+from helpers.fileHandler import FileHandler
 
 app = Flask(__name__)
 app.secret_key = config.secretKey
