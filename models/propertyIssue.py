@@ -5,7 +5,7 @@ class PropertyIssue:
         self.propertyId = propertyId
         self.issueDescription = issueDescription
         self.priority = priority
-        self.imageName = image.filename
+        self.image = image
         self.submittedBy = submittedBy
     
     def toDictionary(self) -> dict:
@@ -13,6 +13,6 @@ class PropertyIssue:
             "Linked Property Id": self.propertyId,
             "Issue Description": self.issueDescription,
             "Priority": self.priority,
-            "Image Name": self.imageName,
+            "Image Name": self.image.filename,
             "Submitted By Tenant": self.submittedBy
         }

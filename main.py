@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session 
 from . import database as db, config
 from . helpers.fileHandler import FileHandler
+from . helpers.propertyIssueSubmitter import PropertyIssueSubmitter
+from . models.propertyIssue import PropertyIssue
 
 
 app = Flask(__name__)
@@ -36,6 +38,15 @@ def workOrderSubmission():
     if request.method == 'GET':
         return render_template('tenantWorkSubmission.html')
     else:
+        propertyIssueSubmitter = PropertyIssueSubmitter()
+        userName = session[activeUserKey]
+        if (not userName): userName = "bob" # default user name for now
+        tenant = db.getTenant(userName)
+        issueDescription = request.form.get('issueDescription')
+        priority = request.form.get('priority')
+        issueImage = request.files['issueImage'] 
+        propertyIssue = PropertyIssue(tenant['Linked Property Id'], issueDescription, priority,issueImage, tenant['Username'])
+        propertyIssueSubmitter.handlePropertySubmission(propertyIssue)
         return index()
     
 

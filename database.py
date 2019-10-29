@@ -1,11 +1,15 @@
 import pymongo
 from . import config
+from . helpers.fileHandler import FileHandler
+from . models.propertyIssue import PropertyIssue
 
 connectionUrl = "mongodb+srv://Dom:password1234@cluster0-tgp6l.gcp.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 client = pymongo.MongoClient(connectionUrl)
 
 db = client.get_database("Property_Management")
+
+fileHandler = FileHandler()
 
 def getAllTenants():
     tenantCollection = db['Tenant']
@@ -28,3 +32,7 @@ def getLandLord(landLordUsername):
     profileImage = fileHandler.getImagePathOrDefault(config.avatarsFolder, landLordUsername)
     landLord['profileImage'] = profileImage
     return landLord
+
+def addPropertyIssue(propertyIssue: PropertyIssue):
+    propertyIssueCollection = db['Property Issues']
+    propertyIssueCollection.insert_one(propertyIssue.toDictionary())
