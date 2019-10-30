@@ -12,19 +12,16 @@ fileHandler = FileHandler()
 
 activeUserKey = "activeUser"
 
-@app.route('/login')
+@app.route('/', methods=['GET', 'POST'])
 def login():
-    return render_template('Register.html')
+    if (request.method == 'GET'): return render_template('login.html')
+    username = request.form['username']
+    password = request.form['password']
+    
+    if(request.form['loginSubmit'] == 'Login As Landlord'):
+        
+    else: 
 
-@app.route('/')
-def index():
-    landlords = db.getAllLandlords()
-    tenants = db.getAllTenants()
-    data = {
-        "landlords" : landlords,
-        "tenants" : tenants
-    }
-    return render_template('index.html', data=data)
 
 @app.route("/tenant/" , methods=['GET', 'POST'])
 def showTenantProfile():
@@ -47,7 +44,7 @@ def workOrderSubmission():
         issueImage = request.files['issueImage'] 
         propertyIssue = PropertyIssue(tenant['Linked Property Id'], issueDescription, priority,issueImage, tenant['Username'])
         propertyIssueSubmitter.handlePropertySubmission(propertyIssue)
-        return index()
+        return login()
     
 
 
