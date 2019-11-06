@@ -5,30 +5,39 @@ from . helpers.propertyIssueSubmitter import PropertyIssueSubmitter
 from . models.propertyIssue import PropertyIssue
 from . helpers.userVerifier import UserVerifier
 
-d = UserVerifier()
-
 app = Flask(__name__)
 app.secret_key = config.secretKey
 
 fileHandler = FileHandler()
+userVerifier = UserVerifier()
 
 activeUserKey = "activeUser"
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if (request.method == 'GET'): return render_template('login.html')
+    # else it must be a post request...
+
     username = request.form['username']
     password = request.form['password']
     
-    if(request.form['loginSubmit'] == 'Login As Landlord'): print("hi")
-        
-    else: print("hi")
+    if(request.form['loginSubmit'] == 'Login As Landlord'):
+        if (userVerifier.landLordExists(username, password)):
+            print("valid landlord")
+            session[activeUserKey] = username
+            return showLandLordProfile()
+    else: 
+        if (userVerifier.tenantExists(username, password)):
+            print("valid tenant")
+            session[activeUserKey] = username
+            return showTenantProfile()
 
+    return render_template('login.html') # Rerender the login page if the user was not found
 
 @app.route("/tenant/" , methods=['GET', 'POST'])
 def showTenantProfile():
-    selectedTenantUsername = request.form.get('tenant-select')
-    session[activeUserKey] = selectedTenantUsername 
+    selectedTenantUsername = session[activeUserKey]
+    if (not selectedTenantUsername): return render_template('login.html')
     tenant = db.getTenant(selectedTenantUsername)
     return render_template('tenant.html', tenant = tenant)
 
@@ -52,8 +61,9 @@ def workOrderSubmission():
 
 @app.route("/landlord/" , methods=['GET', 'POST'])
 def showLandLordProfile():
-    selectedLandLordUsername = request.form.get('landlord-select')
-    session[activeUserKey] = selectedLandLordUsername
+    selectedLandLordUsername = session[activeUserKey]
+    print(selectedLandLordUsername)
+    if (not selectedLandLordUsername): return render_template('login.html')
     landLord = db.getLandLord(selectedLandLordUsername)
     return render_template('landLord.html', landLord = landLord)
 
