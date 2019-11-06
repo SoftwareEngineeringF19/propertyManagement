@@ -3,7 +3,9 @@ from . import database as db, config
 from . helpers.fileHandler import FileHandler
 from . helpers.propertyIssueSubmitter import PropertyIssueSubmitter
 from . models.propertyIssue import PropertyIssue
+from . helpers.userVerifier import UserVerifier
 
+d = UserVerifier()
 
 app = Flask(__name__)
 app.secret_key = config.secretKey
@@ -18,9 +20,9 @@ def login():
     username = request.form['username']
     password = request.form['password']
     
-    if(request.form['loginSubmit'] == 'Login As Landlord'):
+    if(request.form['loginSubmit'] == 'Login As Landlord'): print("hi")
         
-    else: 
+    else: print("hi")
 
 
 @app.route("/tenant/" , methods=['GET', 'POST'])
