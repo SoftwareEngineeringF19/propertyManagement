@@ -1,0 +1,17 @@
+{% extends "landLordBase.html" %}
+
+{% block title %}Landlord - Home{% endblock %}
+
+{% block content %}
+<h2>Properties</h2>
+
+    {% for property in landLordProperties %}
+    <div class="property">
+        <p> Street Address: {{ property['Street'] }} </p>
+        <p> State: {{ property['State'] }}</p>
+        <p> Zip: {{ property['Zip'] }}</p>
+        <p>-----------------</p>
+    </div>
+    {% endfor %}
+
+{% endblock %}

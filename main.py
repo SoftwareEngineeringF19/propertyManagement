@@ -69,6 +69,11 @@ def showLandLordProfile():
     landLord = db.getLandLord(selectedLandLordUsername)
     return render_template('landLord.html', landLord = landLord)
 
+@app.route("/landlord/properties")
+def showLandLordProperties():
+    landLordProperties = db.getLandLordProperties(session[activeUserKey])
+    return render_template('landLordProperties.html', landLordProperties = landLordProperties)
+
 @app.route("/changeAvatar/", methods = ['POST'])
 def changeAvatar():
     userName = session[activeUserKey]
@@ -80,6 +85,8 @@ def changeAvatar():
 
     if ('tenant' in return_url): return redirect(url_for('showTenantProfile'))
     else: return redirect(url_for('showLandLordProfile'))
+
+db.getLandLordProperties('greastern')
 
 
 # from flask import Flask, redirect, url_for, session, request
