@@ -20,6 +20,8 @@ def login():
 
     username = request.form['username']
     password = request.form['password']
+
+    print(username, password)
     
     if(request.form['loginSubmit'] == 'Login As Landlord'):
         if (userVerifier.landLordExists(username, password)):
@@ -55,7 +57,7 @@ def workOrderSubmission():
         issueImage = request.files['issueImage'] 
         propertyIssue = PropertyIssue(tenant['Linked Property Id'], issueDescription, priority,issueImage, tenant['Username'])
         propertyIssueSubmitter.handlePropertySubmission(propertyIssue)
-        return login()
+        login()
     
 
 
