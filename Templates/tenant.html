@@ -1,16 +1,18 @@
 {% extends "tenantBase.html" %}
 {% block title %}Tenant - Home{% endblock %}
 {% block content %}
-    <p>First Name: {{ tenant['First Name'] }}</p>
-    <p>Last Name: {{ tenant['Last Name'] }}</p>
-    <p>Username: {{ tenant['Username'] }}</p>
+<p>First Name: {{ tenant['First Name'] }}</p>
+<p>Last Name: {{ tenant['Last Name'] }}</p>
+<p>Username: {{ tenant['Username'] }}</p>
 
-    <form action = {{ url_for('changeAvatar')}} method = "post" enctype="multipart/form-data">  
-        <input type="file" name="image" />  
-        <input type = "submit" value="Upload">  
-    </form>  
+<form action={{ url_for('changeAvatar')}} method="post" enctype="multipart/form-data">
+    <input type="file" name="image" />
+    <input type="submit" value="Upload">
+</form>
 
-    <img src="../{{tenant['profileImage']}}">
+<div class="profileImageWrapper">
+    <img class="profileImage" src="../{{tenant['profileImage']}}">
+</div>
 {% endblock %}
 
 <!-- <!DOCTYPE html>
