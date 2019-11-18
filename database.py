@@ -33,6 +33,18 @@ def getLandLord(landLordUsername):
     landLord['profileImage'] = profileImage
     return landLord
 
+def getLandLordProperties(landLordUsername) -> list:
+    propertiesCollection = db['Property']
+    landLordProperties = propertiesCollection.find({'Linked Landlord': re.compile(landLordUsername, re.IGNORECASE)})
+
+    landLordPropertiesToList = []
+    
+    for property in landLordProperties:
+        landLordPropertiesToList.append(property)
+
+    return landLordPropertiesToList
+    
+
 def addPropertyIssue(propertyIssue: PropertyIssue):
     propertyIssueCollection = db['Property Issues']
     propertyIssueCollection.insert_one(propertyIssue.toDictionary())
