@@ -27,12 +27,12 @@ def login():
         if (userVerifier.landLordExists(username, password)):
             print("valid landlord")
             session[activeUserKey] = username
-            return showLandLordProfile()
+            return redirect(url_for('showLandLordProfile'))
     else: 
         if (userVerifier.tenantExists(username, password)):
             print("valid tenant")
             session[activeUserKey] = username
-            return showTenantProfile()
+            return redirect(url_for('showTenantProfile'))
 
     return render_template('login.html') # Rerender the login page if the user was not found
 
@@ -57,7 +57,7 @@ def workOrderSubmission():
         issueImage = request.files['issueImage'] 
         propertyIssue = PropertyIssue(tenant['Linked Property Id'], issueDescription, priority,issueImage, tenant['Username'])
         propertyIssueSubmitter.handlePropertySubmission(propertyIssue)
-        login()
+        return redirect(url_for('showTenantProfile'))
     
 
 
@@ -78,12 +78,8 @@ def changeAvatar():
     return_url = request.referrer
     fileHandler.saveImage(config.avatarsFolder, image)
 
-    if ('tenant' in return_url):
-        tenant = db.getTenant(userName)
-        return render_template('tenant.html', tenant = tenant)
-    else:
-        landLord = db.getLandLord(userName)
-        return render_template('landlord.html', landLord = landLord)
+    if ('tenant' in return_url): return redirect(url_for('showTenantProfile'))
+    else: return redirect(url_for('showLandLordProfile'))
 
 
 # from flask import Flask, redirect, url_for, session, request
