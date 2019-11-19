@@ -1,6 +1,6 @@
 {% extends "landLordBase.html" %}
 
-{% block title %}Landlord - Property Issues{% endblock %}
+{% block title %}Landlord - Resolved Property Issues{% endblock %}
 
 {% block content %}
 
@@ -22,6 +22,7 @@
                 <p><b>Issue Description: </b> {{propertyIssue['Issue Description']}}<p>
                 <p><b> Priority: </b> {{propertyIssue['Priority']}}<p>
                 <p><b> Submitted By: </b> {{propertyIssue['Submitted By Tenant']}}<p>
+                <p><b>Resolved: </b> {{propertyIssue['Resolved']}}</p>
                 <p><b> Image of Issue: </b> <p>
                     <div class="imageWrapper">
                         <img src="../{{propertyIssue['Image Absolute Path']}}">

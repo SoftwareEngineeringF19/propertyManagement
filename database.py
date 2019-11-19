@@ -53,9 +53,9 @@ def getLandLordProperties(landLordUsername) -> list:
 
 
 # returns the all unresolved issues that a property has.
-def getPropertyIssues(propertyId: str) -> list:
+def getPropertyIssues(propertyId: str, resolved: bool) -> list:
     propertyIssuesCollection = db['Property Issues']
-    propertyIssues = propertyIssuesCollection.find({'Linked Property Id': propertyId})
+    propertyIssues = propertyIssuesCollection.find({'Linked Property Id': propertyId, 'Resolved': resolved})
     propertyIssues = convertCursorToList(propertyIssues)
     for propertyIssue in propertyIssues:
         propertyId = propertyIssue["Linked Property Id"]

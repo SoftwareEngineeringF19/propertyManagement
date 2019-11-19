@@ -75,18 +75,27 @@ def showLandLordProperties():
     landLordProperties = db.getLandLordProperties(session[activeUserKey])
     return render_template('landLordProperties.html', landLordProperties = landLordProperties)
 
-@app.route("/landlord/propertyIssues")
-def showPropertyIssues():
+@app.route("/landlord/unresolved-property-issues")
+def showUnresolvedPropertyIssues():
+    propertyIssues = getPropertyIssues(False)
+    return render_template('landLordUnresolvedPropertyIssues.html', propertyIssues = propertyIssues)
+
+
+@app.route("/landlord/resolved-property-issues") 
+def showResolvedPropertyIssues():
+    propertyIssues = getPropertyIssues(True)
+    return render_template('landLordResolvedPropertyIssues.html', propertyIssues = propertyIssues)
+
+
+def getPropertyIssues(resolvedStatus: bool):
     landLordProperties = db.getLandLordProperties(session[activeUserKey])
     propertyIssues = {}
     for property in landLordProperties:
         propertyId = str(property['_id'])
         propertyIssues[propertyId] = [property]
-        propertyIssues[propertyId].append(db.getPropertyIssues(propertyId))
+        propertyIssues[propertyId].append(db.getPropertyIssues(propertyId, resolvedStatus))
+    return propertyIssues
     
-    print(propertyIssues['5db852321c9d4400004c7d3a'][1])
-    return render_template('landLordPropertyIssues.html', propertyIssues = propertyIssues)
-       
 
 @app.route("/changeAvatar/", methods = ['POST'])
 def changeAvatar():
