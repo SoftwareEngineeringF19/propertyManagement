@@ -1,6 +1,6 @@
-.profileImageWrapper{
+.imageWrapper{
     max-width: 50%;
 }
-.profileImageWrapper > * {
+.imageWrapper > * {
     width: 20%;
 }

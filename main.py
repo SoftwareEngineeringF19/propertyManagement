@@ -85,7 +85,7 @@ def showPropertyIssues():
         propertyIssues[propertyId].append(db.getPropertyIssues(propertyId))
     
     print(propertyIssues['5db852321c9d4400004c7d3a'][1])
-    return "hi"
+    return render_template('landLordPropertyIssues.html', propertyIssues = propertyIssues)
        
 
 @app.route("/changeAvatar/", methods = ['POST'])

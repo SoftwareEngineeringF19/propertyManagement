@@ -1,0 +1,35 @@
+{% extends "landLordBase.html" %}
+
+{% block title %}Landlord - Property Issues{% endblock %}
+
+{% block content %}
+
+<p>property issues</p>
+
+{% for key, value in propertyIssues.items() %}
+    {% set property = value[0] %}
+    {% set propertyIssues = value[1] %}
+
+    <h3>Property Street Address: {{property['Street']}}</h3>
+
+    {% if propertyIssues|length == 0 %}
+        <p>No issues found</p>
+
+    {% else %}
+        <ol>
+            {% for propertyIssue in propertyIssues %}
+            <li>
+                <p><b>Issue Description: </b> {{propertyIssue['Issue Description']}}<p>
+                <p><b> Priority: </b> {{propertyIssue['Priority']}}<p>
+                <p><b> Submitted By: </b> {{propertyIssue['Submitted By Tenant']}}<p>
+                <p><b> Image of Issue: </b> <p>
+                    <div class="imageWrapper">
+                        <img src="../{{propertyIssue['Image Absolute Path']}}">
+                    </div>
+            </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

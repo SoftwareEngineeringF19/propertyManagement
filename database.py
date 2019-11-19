@@ -61,8 +61,9 @@ def getPropertyIssues(propertyId: str) -> list:
         propertyId = propertyIssue["Linked Property Id"]
         imageFolderPath = f"{config.propertyIssuesImageFolder}{propertyId}"
         imageAbsolutePath = fileHandler.getImage(imageFolderPath, propertyIssue['Image Name'])
-        print(imageAbsolutePath)
-
+        propertyIssue['Image Absolute Path'] = imageAbsolutePath
+    return propertyIssues
+    
 # converts the given cursor object to a list
 def convertCursorToList(cursorObject):
     list = []
