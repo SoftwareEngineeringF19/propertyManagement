@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session 
+from pathlib import Path
 from . import database as db, config
 from . helpers.fileHandler import FileHandler
 from . helpers.propertyIssueSubmitter import PropertyIssueSubmitter
@@ -74,17 +75,34 @@ def showLandLordProperties():
     landLordProperties = db.getLandLordProperties(session[activeUserKey])
     return render_template('landLordProperties.html', landLordProperties = landLordProperties)
 
+@app.route("/landlord/propertyIssues")
+def showPropertyIssues():
+    landLordProperties = db.getLandLordProperties(session[activeUserKey])
+    propertyIssues = {}
+    for property in landLordProperties:
+        propertyId = str(property['_id'])
+        propertyIssues[propertyId] = [property]
+        propertyIssues[propertyId].append(db.getPropertyIssues(propertyId))
+    
+    print(propertyIssues['5db852321c9d4400004c7d3a'][1])
+    return "hi"
+       
+
 @app.route("/changeAvatar/", methods = ['POST'])
 def changeAvatar():
     userName = session[activeUserKey]
     image = request.files['image'] 
-    image.filename = f"{userName}.png"
-    print(userName)
+    fileExtension = Path(image.filename).suffix
+    image.filename = f"{userName}{fileExtension}"
     return_url = request.referrer
     fileHandler.saveImage(config.avatarsFolder, image)
 
-    if ('tenant' in return_url): return redirect(url_for('showTenantProfile'))
-    else: return redirect(url_for('showLandLordProfile'))
+    if ('tenant' in return_url): 
+        db.updateTenantProfilePicture(userName, image.filename)
+        return redirect(url_for('showTenantProfile'))
+    else: 
+        db.updateLandlordProfilePicture(userName, image.filename)
+        return redirect(url_for('showLandLordProfile'))
 
 db.getLandLordProperties('greastern')
 

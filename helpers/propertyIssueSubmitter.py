@@ -1,6 +1,5 @@
 import sys, os
 from pathlib import Path
-# sys.path.insert(1, os.path.join(sys.path[0], '..')) # Expose modules from root directory
 
 from .. import database as db, config
 from .. models.propertyIssue import PropertyIssue

@@ -11,39 +11,65 @@ db = client.get_database("Property_Management")
 
 fileHandler = FileHandler()
 
-def getAllTenants():
-    tenantCollection = db['Tenant']
-    return list(tenantCollection.find())
 
-def getAllLandlords():
-    landlordCollection = db['LandLord']
-    return list(landlordCollection.find())
-
+# returns the information of the tenant who has the given username
 def getTenant(tenantUsername):
     tenantCollection = db['Tenant']
     tenant = tenantCollection.find_one({"Username": re.compile(tenantUsername, re.IGNORECASE)})
-    profileImage = fileHandler.getImagePathOrDefault(config.avatarsFolder, tenantUsername)
-    tenant['profileImage'] = profileImage
+    profileImageName = ""
+    if ('Profile Image' in tenant): profileImageName = tenant['Profile Image']
+    else: profileImageName = "default.png"
+    profileImageAbsolutePath = fileHandler.getImage(config.avatarsFolder, profileImageName)
+    tenant['profileImage'] = profileImageAbsolutePath
     return tenant
 
+# returns the information of the landlord who has the given username
 def getLandLord(landLordUsername):
     landLordCollection = db['LandLord']
     landLord = landLordCollection.find_one({"Username": re.compile(landLordUsername, re.IGNORECASE)})
-    profileImage = fileHandler.getImagePathOrDefault(config.avatarsFolder, landLordUsername)
-    landLord['profileImage'] = profileImage
+    profileImageName = ""
+    if ('Profile Image' in landLord): profileImageName = landLord['Profile Image']
+    else: profileImageName = "default.jpg"
+    profileImageAbsolutePath = fileHandler.getImage(config.avatarsFolder, profileImageName)
+    landLord['profileImage'] = profileImageAbsolutePath
     return landLord
 
+def updateLandlordProfilePicture(landLordUsername, profileImageName):
+    landLordCollection = db['LandLord']
+    landLordCollection.update({"Username": re.compile(landLordUsername, re.IGNORECASE)}, 
+                     {'$set' : {'Profile Image' : profileImageName }})
+
+
+def updateTenantProfilePicture(tenantUsername, profileImageName):
+    tenantCollection = db['Tenant']
+    tenantCollection.update({"Username": re.compile(tenantUsername, re.IGNORECASE)}, 
+                     {'$set' : {'Profile Image' : profileImageName }})
+    
+# returns all the properties a landlord owns
 def getLandLordProperties(landLordUsername) -> list:
     propertiesCollection = db['Property']
     landLordProperties = propertiesCollection.find({'Linked Landlord': re.compile(landLordUsername, re.IGNORECASE)})
+    return convertCursorToList(landLordProperties)
 
-    landLordPropertiesToList = []
-    
-    for property in landLordProperties:
-        landLordPropertiesToList.append(property)
 
-    return landLordPropertiesToList
-    
+# returns the all unresolved issues that a property has.
+def getPropertyIssues(propertyId: str) -> list:
+    propertyIssuesCollection = db['Property Issues']
+    propertyIssues = propertyIssuesCollection.find({'Linked Property Id': propertyId})
+    propertyIssues = convertCursorToList(propertyIssues)
+    for propertyIssue in propertyIssues:
+        propertyId = propertyIssue["Linked Property Id"]
+        imageFolderPath = f"{config.propertyIssuesImageFolder}{propertyId}"
+        imageAbsolutePath = fileHandler.getImage(imageFolderPath, propertyIssue['Image Name'])
+        print(imageAbsolutePath)
+
+# converts the given cursor object to a list
+def convertCursorToList(cursorObject):
+    list = []
+    for row in cursorObject:
+        list.append(row)
+    return list
+
 
 def addPropertyIssue(propertyIssue: PropertyIssue):
     propertyIssueCollection = db['Property Issues']
