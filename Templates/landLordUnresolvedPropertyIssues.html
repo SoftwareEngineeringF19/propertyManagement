@@ -19,14 +19,18 @@
         <ol>
             {% for propertyIssue in propertyIssues %}
             <li>
-                <p><b>Issue Description: </b> {{propertyIssue['Issue Description']}}<p>
-                <p><b> Priority: </b> {{propertyIssue['Priority']}}<p>
-                <p><b> Submitted By: </b> {{propertyIssue['Submitted By Tenant']}}<p>
-                <p><b>Resolved: </b> {{propertyIssue['Resolved']}}</p>
-                <p><b> Image of Issue: </b> <p>
+                <form action={{ url_for('handlePropertyIssueResolving')}} method="post"
+                    <p><b>Issue Description: </b> {{propertyIssue['Issue Description']}}<p>
+                    <p><b> Priority: </b> {{propertyIssue['Priority']}}<p>
+                    <p><b> Submitted By: </b> {{propertyIssue['Submitted By Tenant']}}<p>
+                    <p><b>Resolved: </b> {{propertyIssue['Resolved']}}</p>
+                    <p><b> Image of Issue: </b> <p>
                     <div class="imageWrapper">
                         <img src="../{{propertyIssue['Image Absolute Path']}}">
                     </div>
+                    <input type="hidden" name="propertyIssueId" value = "{{propertyIssue['_id']}}">
+                    <input type="submit" value="Resolve Issue">
+                </form>
             </li>
             {% endfor %}
         </ol>

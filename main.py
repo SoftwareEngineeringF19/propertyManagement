@@ -95,7 +95,12 @@ def getPropertyIssues(resolvedStatus: bool):
         propertyIssues[propertyId] = [property]
         propertyIssues[propertyId].append(db.getPropertyIssues(propertyId, resolvedStatus))
     return propertyIssues
-    
+
+@app.route("/landlordResolvePropertyIssue", methods = ['POST'])
+def handlePropertyIssueResolving():
+    propertyIssueId = request.form['propertyIssueId']
+    db.resolvePropertyIssue(propertyIssueId)
+    return redirect(url_for('showUnresolvedPropertyIssues'))    
 
 @app.route("/changeAvatar/", methods = ['POST'])
 def changeAvatar():

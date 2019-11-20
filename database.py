@@ -1,4 +1,5 @@
 import pymongo, re
+from bson import ObjectId
 from . import config
 from . helpers.fileHandler import FileHandler
 from . models.propertyIssue import PropertyIssue
@@ -75,3 +76,9 @@ def convertCursorToList(cursorObject):
 def addPropertyIssue(propertyIssue: PropertyIssue):
     propertyIssueCollection = db['Property Issues']
     propertyIssueCollection.insert_one(propertyIssue.toDictionary())
+
+def resolvePropertyIssue(propertyIssueId: str):
+    propertyIssueId = ObjectId(propertyIssueId)
+    propertyIssueCollection = db['Property Issues']
+    propertyIssueCollection.update({"_id": propertyIssueId}, 
+                     {'$set' : {'Resolved' : True }})
