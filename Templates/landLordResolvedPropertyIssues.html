@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<p>property issues</p>
+<h1>Resolved Property Issues</h1>
 
 {% for key, value in propertyIssues.items() %}
     {% set property = value[0] %}
@@ -13,7 +13,7 @@
     <h3>Property Street Address: {{property['Street']}}</h3>
 
     {% if propertyIssues|length == 0 %}
-        <p>No issues found</p>
+        <p>No resolved issues found</p>
 
     {% else %}
         <ol>

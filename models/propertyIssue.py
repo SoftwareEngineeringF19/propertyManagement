@@ -14,5 +14,6 @@ class PropertyIssue:
             "Issue Description": self.issueDescription,
             "Priority": self.priority,
             "Image Name": self.image.filename,
-            "Submitted By Tenant": self.submittedBy
+            "Submitted By Tenant": self.submittedBy, 
+            "Resolved": False
         }
