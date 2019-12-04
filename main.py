@@ -37,6 +37,22 @@ def login():
 
     return render_template('login.html') # Rerender the login page if the user was not found
 
+@app.route("/registerAsLandlord", methods=['GET','POST'])
+def registerAsLandlord():
+    if (request.method == 'GET'): return render_template('registerAsLandlord.html')
+    landlord = {}
+    landlord["First Name"] = request.form['firstName']
+    landlord["Last Name"] = request.form['lastName']
+    landlord["Email"] = request.form['email']
+    landlord["Password"] = request.form['password']
+    landlord["Mobile #"] = request.form['phoneNumber']
+    landlord["Username"] = request.form['username']
+    db.addLandlord(landlord)
+    session[activeUserKey] = request.form['username']
+    return redirect(url_for('showLandLordProfile'))
+
+
+
 @app.route("/tenant/" , methods=['GET', 'POST'])
 def showTenantProfile():
     selectedTenantUsername = session[activeUserKey]

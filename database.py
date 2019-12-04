@@ -82,3 +82,7 @@ def resolvePropertyIssue(propertyIssueId: str):
     propertyIssueCollection = db['Property Issues']
     propertyIssueCollection.update({"_id": propertyIssueId}, 
                      {'$set' : {'Resolved' : True }})
+
+def addLandlord(landlord: dict):
+    landLordCollection = db['LandLord']
+    landLordCollection.insert_one(landlord)
