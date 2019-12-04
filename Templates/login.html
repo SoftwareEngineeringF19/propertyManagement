@@ -4,7 +4,6 @@
     <title>Property Management - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="/Users/noblemathew/Documents/OneDrive/School/Fall 2019/Software Engineering/propertyManagement/static/css/login.css">
   </head>
   <body style="background-color: gainsboro;">
     <div class="container">
@@ -12,7 +11,7 @@
       <br>
 
 <!-- core UI-->
-    <!--<div id= "card">-->
+    <div id= "card">
       <div id= "card" class="card text-white bg-dark mb-3" style="max-width: 18rem;" >
         <div class="card-header">
           <h5 class="card-title">Please Login</h5>
@@ -24,12 +23,12 @@
             <div class="form-row">
               <div class="form-group col-auto">
                 <label for="inputEmail4">Username</label>
-                <input type="text" class="form-control form-control-sm" id="inputEmail4" placeholder="Username"
+                <input type="text" class="form-control form-control-sm" id="inputEmail4" placeholder="Username" 
                 name = "username" value="{{request.form.username }}">
               </div>
               <div class="form-group col-auto">
                 <label for="inputPassword4">Password</label>
-                <input type="password" class="form-control form-control-sm" id="inputPassword4"
+                <input type="password" class="form-control form-control-sm" id="inputPassword4" 
                 name = "password" placeholder="Password" value="{{
                  request.form.password }}">
               </div>
