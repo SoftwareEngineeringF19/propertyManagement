@@ -1,50 +1,54 @@
 <html>
-  <head>
+
+<head>
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
     <title>Property Management - Login</title>
-        <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login.css') }}">
 
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-  </head>
-  <body style="background-color: gainsboro;">
+</head>
+
+<body style="background-color: gainsboro;">
     <div class="container">
-      <!-- <h1>Please login</h1> -->
-      <br>
+        <!-- <h1>Please login</h1> -->
+        <br>
 
-<!-- core UI-->
-    <div id= "card">
-      <div id= "card" class="card text-white bg-dark mb-3" style="max-width: 18rem;" >
-        <div class="card-header">
-          <h5 class="card-title">Please Login</h5>
-        </div>
-        <div class="card-body">
-          <!--<h5 class="card-title">Primary card title</h5>
+        <!-- core UI-->
+        <div id="card">
+            <div id="card" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Please Login</h5>
+                </div>
+                <div class="card-body">
+                    <!--<h5 class="card-title">Primary card title</h5>
           <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p> -->
-            <form action="{{ url_for('login')}}" method="post" >
-            <div class="form-row">
-              <div class="form-group col-auto">
-                <label for="inputEmail4">Username</label>
-                <input type="text" class="form-control form-control-sm" id="inputEmail4" placeholder="Username" 
-                name = "username" value="{{request.form.username }}">
-              </div>
-              <div class="form-group col-auto">
-                <label for="inputPassword4">Password</label>
-                <input type="password" class="form-control form-control-sm" id="inputPassword4" 
-                name = "password" placeholder="Password" value="{{
+                    <form action="{{ url_for('login')}}" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-auto">
+                                <label for="inputEmail4">Username</label>
+                                <input type="text" class="form-control form-control-sm" id="inputEmail4"
+                                    placeholder="Username" name="username" value="{{request.form.username }}">
+                            </div>
+                            <div class="form-group col-auto">
+                                <label for="inputPassword4">Password</label>
+                                <input type="password" class="form-control form-control-sm" id="inputPassword4"
+                                    name="password" placeholder="Password" value="{{
                  request.form.password }}">
-              </div>
-              </div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-2" name = "loginSubmit" value="Login As Tenant">Tenant Login</button>
-                <button type="submit" class="btn btn-primary mb-2" name = "loginSubmit" value="Login As Landlord">Landlord Login</button>
-              </div>
-            </form>
-          </div>
-      </div>
+                            </div>
+                        </div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-2" name="loginSubmit"
+                            value="Login As Tenant">Tenant Login</button>
+                        <button type="submit" class="btn btn-primary mb-2" name="loginSubmit"
+                            value="Login As Landlord">Landlord Login</button>
+                </div>
+                </form>
+            </div>
+        </div>
 
-<!--end Core UI-->
+        <!--end Core UI-->
 
-      <!-- <form action="{{ url_for('login')}}" method="post" >
+        <!-- <form action="{{ url_for('login')}}" method="post" >
         <input type="text" placeholder="Username" name="username" value="{{
           request.form.username }}">
          <input type="password" placeholder="Password" name="password" value="{{
@@ -56,5 +60,6 @@
         <p class="error"><strong>Error:</strong> {{ error }}
       {% endif %} -->
     </div>
-  </body>
+</body>
+
 </html>
